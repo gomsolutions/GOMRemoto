@@ -66,6 +66,8 @@ jobs:
     name: ${{ matrix.job.target }}
     needs: [build-RustDeskTempTopMostWindow, generate-bridge]
     runs-on: ${{ matrix.job.os }}
+    env:
+      RUSTFLAGS: "-C target-feature=+crt-static"
     strategy:
       fail-fast: false
       matrix:
@@ -164,8 +166,6 @@ jobs:
         shell: bash
 
       - name: Build rustdesk
-        env:
-          RUSTFLAGS: "-C target-feature=+crt-static"
         run: |
           # Windows: build RustDesk
           python3 .\build.py --portable --hwcodec --flutter --vram --skip-portable-pack
@@ -285,6 +285,7 @@ jobs:
 
   # The fallback for the flutter version, we use Sciter for 32bit Windows.
   build-for-windows-sciter:
+    if: false  # Disabled: only building Windows x64 Flutter
     name: ${{ matrix.job.target }} (${{ matrix.job.os }})
     runs-on: ${{ matrix.job.os }}
     # Temporarily disable this action due to additional test is needed.
@@ -437,7 +438,7 @@ jobs:
             ./SignOutput/rustdesk-*.exe
 
   build-rustdesk-ios:
-    if: ${{ inputs.upload-artifact }}
+    if: false  # Disabled: only building Windows x64 Flutter
     name: build rustdesk ios ipa
     runs-on: ${{ matrix.job.os }}
     needs: [generate-bridge]
@@ -557,6 +558,7 @@ jobs:
 
 
   build-for-macOS:
+    if: false  # Disabled: only building Windows x64 Flutter
     name: ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.os }}
     needs: [generate-bridge]
@@ -818,6 +820,7 @@ jobs:
           files: rustdesk-${{ env.VERSION }}-unsigned.tar.gz
 
   build-rustdesk-android:
+    if: false  # Disabled: only building Windows x64 Flutter
     needs: [generate-bridge]
     name: build rustdesk android apk ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.os }}
@@ -1110,9 +1113,9 @@ jobs:
             signed-apk/rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}.apk
 
   build-rustdesk-android-universal:
+    if: false  # Disabled: only building Windows x64 Flutter
     needs: [build-rustdesk-android]
     name: build rustdesk android universal apk
-    if: ${{ inputs.upload-artifact }}
     runs-on: ubuntu-24.04
     env:
       reltype: release
@@ -1294,6 +1297,7 @@ jobs:
             signed-apk/rustdesk-${{ env.VERSION }}-universal${{ env.suffix }}.apk
 
   build-rustdesk-linux:
+    if: false  # Disabled: only building Windows x64 Flutter
     needs: [generate-bridge]
     name: build rustdesk linux ${{ matrix.job.target }}
     runs-on: ${{ matrix.job.on }}
@@ -1631,7 +1635,7 @@ jobs:
             res/rustdesk-${{ env.VERSION }}*.zst
 
   build-rustdesk-linux-sciter:
-    if: ${{ inputs.upload-artifact }}
+    if: false  # Disabled: only building Windows x64 Flutter
     runs-on: ${{ matrix.job.on }}
     name: build-rustdesk-linux-sciter ${{ matrix.job.target }}
     strategy:
@@ -1858,10 +1862,10 @@ jobs:
           path: rustdesk-${{ env.VERSION }}-${{ matrix.job.arch }}-sciter.deb
 
   build-appimage:
+    if: false  # Disabled: only building Windows x64 Flutter
     name: Build appimage ${{ matrix.job.target }}
     needs: [build-rustdesk-linux]
     runs-on: ubuntu-22.04
-    if: ${{ inputs.upload-artifact }}
     strategy:
       fail-fast: false
       matrix:
@@ -1908,12 +1912,12 @@ jobs:
             ./appimage/rustdesk-${{ env.VERSION }}-*.AppImage
 
   build-flatpak:
+    if: false  # Disabled: only building Windows x64 Flutter
     name: Build flatpak ${{ matrix.job.target }}${{ matrix.job.suffix }}
     needs:
       - build-rustdesk-linux
       - build-rustdesk-linux-sciter
     runs-on: ${{ matrix.job.on }}
-    if: ${{ inputs.upload-artifact }}
     strategy:
       fail-fast: false
       matrix:
