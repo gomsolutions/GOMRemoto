@@ -1,6 +1,10 @@
 name: Build GOM Remoto
 
 on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
@@ -9,4 +13,4 @@ jobs:
     secrets: inherit
     with:
       upload-artifact: true
-      upload-tag: "release"
+      upload-tag: ${{ github.ref_type == 'tag' && github.ref_name || 'nightly' }}
