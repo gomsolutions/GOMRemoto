@@ -260,6 +260,7 @@ jobs:
       - name: Build msi
         if: env.UPLOAD_ARTIFACT == 'true'
         run: |
+          Rename-Item ./rustdesk/rustdesk.exe "GOM Remoto.exe"
           pushd ./res/msi
           python preprocess.py --arp -d ../../rustdesk
           nuget restore msi.sln
