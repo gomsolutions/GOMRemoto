@@ -1081,12 +1081,12 @@ fn get_api_server_(api: String, custom: String) -> String {
             return format!("http://{}", s);
         }
     }
-    "https://admin.rustdesk.com".to_owned()
+    "https://gomsolutions.com".to_owned()
 }
 
 #[inline]
 pub fn is_public(url: &str) -> bool {
-    url.contains("rustdesk.com/") || url.ends_with("rustdesk.com")
+    url.contains("gomsolutions.com/") || url.ends_with("gomsolutions.com") || url.contains("nubegom.com/") || url.ends_with("nubegom.com")
 }
 
 pub fn get_udp_punch_enabled() -> bool {
@@ -2464,25 +2464,27 @@ mod tests {
 
     #[test]
     fn test_is_public() {
-        // Test URLs containing "rustdesk.com/"
-        assert!(is_public("https://rustdesk.com/"));
-        assert!(is_public("https://www.rustdesk.com/"));
-        assert!(is_public("https://api.rustdesk.com/v1"));
-        assert!(is_public("https://rustdesk.com/path"));
+        // Test URLs containing "gomsolutions.com/"
+        assert!(is_public("https://gomsolutions.com/"));
+        assert!(is_public("https://www.gomsolutions.com/"));
+        assert!(is_public("https://api.gomsolutions.com/v1"));
+        assert!(is_public("https://gomsolutions.com/path"));
 
-        // Test URLs ending with "rustdesk.com"
-        assert!(is_public("rustdesk.com"));
-        assert!(is_public("https://rustdesk.com"));
-        assert!(is_public("http://www.rustdesk.com"));
-        assert!(is_public("https://api.rustdesk.com"));
+        // Test URLs ending with "gomsolutions.com"
+        assert!(is_public("gomsolutions.com"));
+        assert!(is_public("https://gomsolutions.com"));
+        assert!(is_public("http://www.gomsolutions.com"));
+
+        // Test URLs containing "nubegom.com"
+        assert!(is_public("https://nubegom.com/"));
+        assert!(is_public("https://remoto.nubegom.com"));
+        assert!(is_public("nubegom.com"));
 
         // Test non-public URLs
         assert!(!is_public("https://example.com"));
         assert!(!is_public("https://custom-server.com"));
         assert!(!is_public("http://192.168.1.1"));
         assert!(!is_public("localhost"));
-        assert!(!is_public("https://rustdesk.computer.com"));
-        assert!(!is_public("rustdesk.comhello.com"));
     }
 
     #[test]
