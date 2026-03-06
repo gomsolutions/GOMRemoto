@@ -1,6 +1,6 @@
-enum AppFlavor { cliente, tecnico }
+enum GomFlavor { cliente, tecnico }
 
 /// Cambiar este valor para compilar la version deseada:
-/// - AppFlavor.cliente  -> Solo recibe conexiones, sin login
-/// - AppFlavor.tecnico  -> Login requerido, puede conectar a otros equipos
-const appFlavor = AppFlavor.tecnico;
+/// - GomFlavor.cliente  -> Solo recibe conexiones, sin login
+/// - GomFlavor.tecnico  -> Login requerido, puede conectar a otros equipos
+const gomFlavor = GomFlavor.tecnico;

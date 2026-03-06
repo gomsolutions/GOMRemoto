@@ -508,7 +508,7 @@ class _AppState extends State<App> with WidgetsBindingObserver {
           darkTheme: MyTheme.darkTheme,
           themeMode: MyTheme.currentThemeMode(),
           home: isDesktop
-              ? (appFlavor == AppFlavor.tecnico
+              ? (gomFlavor == GomFlavor.tecnico
                   ? const LoginPage()
                   : const DesktopTabPage())
               : isWeb
