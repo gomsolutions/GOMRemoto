@@ -108,7 +108,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   _WindowButton(
                     icon: Icons.close,
-                    onPressed: () => windowManager.close(),
+                    onPressed: () async {
+                      await windowManager.setPreventClose(false);
+                      await windowManager.close();
+                    },
                     isClose: true,
                   ),
                 ],
